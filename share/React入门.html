@@ -36,10 +36,19 @@
     width: 30%;
   }
 
+  blockquote {
+    margin-left: 20px;
+  }
+
   blockquote p {
     border-left: 4px solid;
     padding-left: 10px;
   }
+
+  pre,code,img {
+    border-radius: 10px;
+  }
+
   </style>
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
@@ -67,7 +76,7 @@
 <h2 id="为什么这么火">为什么这么火</h2>
 
 <ol>
-<li>Facebook、Instangram的重度使用和推动</li>
+<li>Facebook、Instagram的重度使用和推动</li>
 <li>Vitural DOM、JSX、ES2015</li>
 <li>专注于View（UI）层</li>
 <li>配套生态系统完善</li>
@@ -82,6 +91,8 @@
 </p>
 
 <h2 id="框架库">框架/库</h2>
+
+<blockquote><p>目前JS框架/库主要分为四个流派：jQuery、React、MVC/MVVM、Web Components</p></blockquote>
 
 <table>
   <thead>
@@ -121,11 +132,13 @@
 
 
 
+
+
 <h2 id="组件">组件</h2>
 
 
 
-<h3 id="using-react-without-npm">Using React without npm:</h3>
+<h3 id="using-react-without-npm">Using React without npm:（浏览器直接运行）</h3>
 
 
 
@@ -142,14 +155,14 @@
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
     ReactDOM.render(
-      React.createElement(<span class="hljs-string">'h1'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello world!'</span>),
-      document.getElementById(<span class="hljs-string">'container'</span>)
+      // domNode 代替 document.getElementById('container');
+      React.createElement(<span class="hljs-string">'h1'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello world!'</span>), domNode
     );
     </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span></code></pre>
 
-<h3 id="using-react-from-npm">Using React from npm:</h3>
+<h3 id="using-react-from-npm">Using React with npm:（需编译）</h3>
 
 
 
@@ -162,14 +175,11 @@
   }
 });
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">HelloMessage</span> /&gt;</span>, 
-document.getElementById('container'));  </span></code></pre>
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">HelloMessage</span> /&gt;</span>, domNode);  </span></code></pre>
 
 <p>编译后：</p>
 
 <pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> HelloMessage = React.createClass({
-  displayName: <span class="hljs-string">"HelloMessage"</span>,
-
   render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">return</span> React.createElement(
       <span class="hljs-string">"h1"</span>,
@@ -180,12 +190,27 @@ document.getElementById('container'));  </span></code></pre>
   }
 });
 
-ReactDOM.render(React.createElement(HelloMessage, {}), 
-document.getElementById(<span class="hljs-string">'container'</span>));</code></pre>
+ReactDOM.render(React.createElement(HelloMessage, {}), domNode);</code></pre>
+
+<h2 id="组件生命周期">组件生命周期</h2>
+
+<p>初始化： <br>
+getInitialState（用ES6语法的话，初始化state放在constructor中） <br>
+render <br>
+装载： <br>
+componentWillMount <br>
+componentDidMount（最常用） <br>
+更新： <br>
+componentWillReceiveProps <br>
+shouldComponentUpdate <br>
+componentWillUpdate <br>
+componentDidUpdate <br>
+卸载： <br>
+componentWillUnmount</p>
 
 <h2 id="虚拟dom">虚拟DOM</h2>
 
-<p>用JS对象来模拟真实的DOM结构。组件不直接操作原生的DOM对象，通过React自建的虚拟DOM模型来构建DOM，并通过特定的Diff算法批量更新真实的DOM。 <br>
+<p>用JS对象来模拟真实的DOM结构。render操作不直接操作原生的DOM对象，通过React自建的JS虚拟DOM模型来构建，并通过特定的Diff算法批量更新真实的DOM。 <br>
 举例： <br>
 数据：[0,1,2] <br>
 HTML：</p>
@@ -198,8 +223,8 @@ HTML：</p>
   <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span></code></pre>
 
-<p>数据变为：[0,1,2,3,4,5] <br>
-如何输出HTML？</p>
+<p>数据变为：[2,3,4,5] <br>
+如何高效的构建HTML？</p>
 
 <p>衍生： <br>
 正是由于虚拟DOM的应用，渲染层可以是各种介质，由此产生的项目有<a href="https://facebook.github.io/react-native/">React-Native</a>、<a href="https://github.com/Flipboard/react-canvas">React-Canvas</a>，还包括React原生支持的服务端渲染。</p>
@@ -208,7 +233,7 @@ HTML：</p>
 
 <h2 id="jsx">JSX：</h2>
 
-<p>是一个看起来很像 XML 的 JavaScript 语法扩展。</p>
+<p>是一个看起来很像 XML 的 JavaScript 语法扩展，最终会被编译为JavaScript。</p>
 
 
 
@@ -226,7 +251,7 @@ HTML：</p>
 
 <h2 id="属性">属性</h2>
 
-<p>React中，组件的<strong>静态</strong>信息存储和组件的间的<strong>静态</strong>信息传递靠Props。</p>
+<p>React中，组件的<strong>静态</strong>信息存储和组件间的<strong>静态</strong>信息传递靠Props。</p>
 
 
 
@@ -239,15 +264,14 @@ HTML：</p>
   }
 });
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">HelloMessage</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"world"</span> /&gt;</span>, 
-document.getElementById('container'));  </span></code></pre>
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">HelloMessage</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"world"</span> /&gt;</span>, domNode);  </span></code></pre>
 
 
 
 <h2 id="状态">状态</h2>
 
-<p>在React的理念中，任何时刻的UI展现都是一个状态的呈现，各种内部状态组合成了一个<strong>状态机</strong>。状态是动态会变的。 <br>
-<strong>状态字段尽可能的少，且都放在根组件中。</strong></p>
+<p>在React的理念中，任何时刻的UI展现都是一个状态的呈现，你可以把它理解为状态机。状态是动态会变的，每次状态的变化会自动触发render函数的执行。 <br>
+<strong>优秀实践：状态字段尽可能的少，且都放在根组件中。</strong></p>
 
 
 
@@ -255,16 +279,17 @@ document.getElementById('container'));  </span></code></pre>
   getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">return</span> {name: <span class="hljs-string">"John"</span>};
   },
+
   componentDidMount: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">this</span>.setState({name: <span class="hljs-string">"Tim"</span>});
   },
+
   render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>Hello {this.state.name}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>;</span>
   }
 });
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">HelloMessage</span> /&gt;</span>, 
-document.getElementById('container'));  </span></code></pre>
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">HelloMessage</span> /&gt;</span>, domNode);  </span></code></pre>
 
 
 
@@ -283,24 +308,9 @@ document.getElementById('container'));  </span></code></pre>
     );
   }
 });
-ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">CommentBox</span> /&gt;</span>,
-document.getElementById('container'));</span></code></pre>
+ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">CommentBox</span> /&gt;</span>, domNode);</span></code></pre>
 
-<h2 id="组件生命周期">组件生命周期</h2>
 
-<p>初始化： <br>
-render <br>
-getInitialState（用ES6语法的话，初始化state放在constructor中） <br>
-装载： <br>
-componentWillMount <br>
-componentDidMount（最常用） <br>
-更新： <br>
-componentWillReceiveProps <br>
-shouldComponentUpdate <br>
-componentWillUpdate <br>
-componentDidUpdate <br>
-卸载： <br>
-componentWillUnmount</p>
 
 
 
@@ -351,7 +361,7 @@ componentWillUnmount</p>
   }
 });
 
-ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">TodoApp</span> /&gt;</span>, document.getElementById('container'));</span></code></pre>
+ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">TodoApp</span> /&gt;</span>, domNode);</span></code></pre>
 
 <h2 id="开发一个应用">开发一个应用</h2>
 
@@ -613,7 +623,8 @@ describe<span class="hljs-function"><span class="hljs-params">(<span class="hljs
     browserify: {
       components: {
         files: {
-          <span class="hljs-string">'&lt;%= dest %&gt;/js/components.js'</span>: [<span class="hljs-string">'&lt;%= components %&gt;/InfoStream/**/*.{jsx,js}'</span>]
+          <span class="hljs-string">'&lt;%= dest %&gt;/js/components.js'</span>: [<span class="hljs-string">'&lt;%= components %&gt;/
+          InfoStream/**/*.{jsx,js}'</span>]
         },
         options: {
           <span class="hljs-string">'transform'</span>: [
@@ -631,7 +642,8 @@ describe<span class="hljs-function"><span class="hljs-params">(<span class="hljs
 
   grunt.loadNpmTasks(<span class="hljs-string">'grunt-browserify'</span>);
   grunt.registerTask(<span class="hljs-string">'default'</span>, [<span class="hljs-string">'eslint'</span>, <span class="hljs-string">'clean'</span>, <span class="hljs-string">'copy'</span>, <span class="hljs-string">'less'</span>,
-    <span class="hljs-string">'browserify'</span>, <span class="hljs-string">'concat'</span>, <span class="hljs-string">'cssmin'</span>, <span class="hljs-string">'imagemin'</span>, <span class="hljs-string">'uglify'</span>, <span class="hljs-string">'watch'</span>]);
+    <span class="hljs-string">'browserify'</span>, <span class="hljs-string">'concat'</span>, <span class="hljs-string">'cssmin'</span>, <span class="hljs-string">'imagemin'</span>, <span class="hljs-string">'uglify'</span>, 
+    <span class="hljs-string">'watch'</span>]);
 };</code></pre>
 
 <p>运行<code>grunt</code>来执行前端构建并监听文件修改。</p>
@@ -642,7 +654,9 @@ describe<span class="hljs-function"><span class="hljs-params">(<span class="hljs
 
 <p></p><ul> <br>
 <li>无刷新</li>
-<li>有URL的变化 <br></li></ul><p></p>
+<li>有URL的变化</li>
+<li>对应RESTful后台接口</li>
+</ul>
 
 <blockquote>
    明确是SPA型应用才考虑引入router，最常用的是：<a href="https://github.com/rackt/react-router">react-router</a>  
@@ -690,13 +704,12 @@ ReactDOM.render((
 
 <h2 id="flux">Flux</h2>
 
-<p><a href="https://facebook.github.io/flux/">flux</a>: APPLICATION ARCHITECTURE FOR BUILDING USER INTERFACES</p>
+<p><a href="https://facebook.github.io/flux/">Flux</a>: APPLICATION ARCHITECTURE FOR BUILDING USER INTERFACES</p>
 
 
 
 <h3 id="单项数据流">单项数据流：</h3>
 
-<p><img src="https://facebook.github.io/flux/img/flux-simple-f8-diagram-1300w.png" alt="架构图" title=""></p>
 
 <blockquote>
   <p>现在业界最流行的实现是<a href="http://redux.js.org/index.html">Redux</a>。一般都是有大量React组件已经存在，且你自己已确信需要一个应用架构来组织的时候才考虑引入Flux框架。</p>
@@ -707,7 +720,7 @@ ReactDOM.render((
 <h2 id="服务器端渲染">服务器端渲染</h2>
 
 <blockquote>
-  <p>服务器端渲染也成为同构。为了将React组件做到前后端公用，且做到没有首屏性能问题。基本原理是在Web服务端把React组件输出成HTML字符串到前端。<a href="https://github.com/mhart/react-server-example">代码示例</a></p>
+  <p>服务器端渲染，也就是同构的概念。为了将React组件做到前后端公用，且做到没有首屏性能问题。基本原理是在Web服务端把React组件输出成HTML字符串到前端。<a href="https://github.com/mhart/react-server-example">代码示例</a></p>
 </blockquote>
 
 
@@ -715,7 +728,7 @@ ReactDOM.render((
 <h2 id="inline-style">Inline Style</h2>
 
 <blockquote>
-  <p>CSS在被创造出来那天，就有很多天生的问题，例如全局变量、依赖、隔离等等尤其在应对大规模Web应用时。利用LESS、SASS等预CSS编译语言，可以一定程度上解决/规避那些问题，但还是不能完全解决。Facebook对大规模CSS做了很多努力，最终用React的inline style相对比较好的解决了这些问题。</p>
+  <p>CSS在被创造出来的那天，就有很多天生的问题，例如全局变量、依赖、隔离等等，尤其在应对大规模Web应用时。利用LESS、SASS等CSS预编译语言，可以一定程度上解决/规避那些问题，但还是不能完全解决。Facebook对大规模CSS做了很多努力，最终用React的inline style相对比较好的解决了这些问题。</p>
 </blockquote>
 
 
