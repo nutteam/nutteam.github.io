@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>React入门</title>
+  <meta charset='utf-8'>
+  <style type="text/css">
+  body {
+    font-size: 24px;
+    line-height: 1.5em;
+    background-color: #333;
+    color: #eee;
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  pre {
+    line-height: 1.2em;
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    font-size: 18px;
+}
+
+  a {
+    color: #aaa;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  th {
+    text-align: left;
+    width: 30%;
+  }
+
+  blockquote p {
+    border-left: 4px solid;
+    padding-left: 10px;
+  }
+  </style>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script> 
+</head>
+<body>
+
+<h1 id="react入门">React入门</h1>
+
+<blockquote>
+  <p>A JAVASCRIPT LIBRARY FOR BUILDING USER INTERFACES</p>
+</blockquote>
+
+<h2 id="特点">特点</h2>
+<img src="https://img.alicdn.com/tps/TB1cbZhLpXXXXXcXXXXXXXXXXXX-1946-420.jpg">
+<ul>
+<li>专注UI</li>
+<li>虚拟DOM</li>
+<li>单向数据流</li>
+</ul>
+
+
+
+
+<h2 id="为什么这么火">为什么这么火</h2>
+
+<ol>
+<li>Facebook、Instangram的重度使用和推动</li>
+<li>Vitural DOM、JSX、ES2015</li>
+<li>专注于View（UI）层</li>
+<li>配套生态系统完善</li>
+<li>文档完善</li>
+<li>组件方便沉淀</li>
+<li>背靠NPM</li>
+</ol>
+
+<p>
+<a href="https://www.npmjs.com/">npm: </a>
+<img src="https://img.alicdn.com/tps/TB1sNbSLpXXXXXMXVXXXXXXXXXX-1854-318.jpg">
+</p>
+
+<h2 id="框架库">框架/库</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>框架名</th>
+      <th>第一次发布时间</th>
+      <th>star数量</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>jQuery</td><td>2006.6</td><td>37000+</td>
+    </tr>
+    <tr>
+      <td>Knockout</td><td>2010.6</td><td>7000+</td>
+    </tr>
+    <tr>
+      <td>Backbone</td><td>2010.10</td><td>23000+</td>
+    </tr>
+    <tr>
+      <td>Angular</td><td>2010.10</td><td>46000+</td>
+    </tr>
+    <tr>
+      <td>Ember</td><td>2011.6</td><td>15000+</td>
+    </tr>
+    <tr>
+      <td>React</td><td>2013.5</td><td>35000+</td>
+    </tr>
+    <tr>
+      <td>Polymer</td><td>2013.6</td><td>13000+</td>
+    </tr>
+    <tr>
+      <td>Vue</td><td>2013.12</td><td>13000+</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<h2 id="组件">组件</h2>
+
+
+
+<h3 id="using-react-without-npm">Using React without npm:</h3>
+
+
+
+<pre class="prettyprint"><code class="language-html hljs "><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"UTF-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Hello React!<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/react.js"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"build/react-dom.js"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- No need for Babel! --&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+    ReactDOM.render(
+      React.createElement(<span class="hljs-string">'h1'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello world!'</span>),
+      document.getElementById(<span class="hljs-string">'container'</span>)
+    );
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span></code></pre>
+
+<h3 id="using-react-from-npm">Using React from npm:</h3>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
+
+<span class="hljs-keyword">var</span> HelloMessage = React.createClass({
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Hello world!<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>;</span>
+  }
+});
+
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">HelloMessage</span> /&gt;</span>, 
+document.getElementById('container'));  </span></code></pre>
+
+<p>编译后：</p>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> HelloMessage = React.createClass({
+  displayName: <span class="hljs-string">"HelloMessage"</span>,
+
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">return</span> React.createElement(
+      <span class="hljs-string">"h1"</span>,
+      <span class="hljs-literal">null</span>,
+      <span class="hljs-string">"Hello world!"</span>,
+      <span class="hljs-literal">null</span>
+    );
+  }
+});
+
+ReactDOM.render(React.createElement(HelloMessage, {}), 
+document.getElementById(<span class="hljs-string">'container'</span>));</code></pre>
+
+<h2 id="虚拟dom">虚拟DOM</h2>
+
+<p>用JS对象来模拟真实的DOM结构。组件不直接操作原生的DOM对象，通过React自建的虚拟DOM模型来构建DOM，并通过特定的Diff算法批量更新真实的DOM。 <br>
+举例： <br>
+数据：[0,1,2] <br>
+HTML：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span></code></pre>
+
+<p>数据变为：[0,1,2,3,4,5] <br>
+如何输出HTML？</p>
+
+<p>衍生： <br>
+正是由于虚拟DOM的应用，渲染层可以是各种介质，由此产生的项目有<a href="https://facebook.github.io/react-native/">React-Native</a>、<a href="https://github.com/Flipboard/react-canvas">React-Canvas</a>，还包括React原生支持的服务端渲染。</p>
+
+
+
+<h2 id="jsx">JSX：</h2>
+
+<p>是一个看起来很像 XML 的 JavaScript 语法扩展。</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> dropdown =
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Dropdown</span>&gt;</span>
+    A dropdown list
+    <span class="hljs-tag">&lt;<span class="hljs-title">Menu</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">MenuItem</span>&gt;</span>Do Something<span class="hljs-tag">&lt;/<span class="hljs-title">MenuItem</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">MenuItem</span>&gt;</span>Do Something Fun!<span class="hljs-tag">&lt;/<span class="hljs-title">MenuItem</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">MenuItem</span>&gt;</span>Do Something Else<span class="hljs-tag">&lt;/<span class="hljs-title">MenuItem</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">Menu</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">Dropdown</span>&gt;</span>;</span></code></pre>
+
+
+
+<h2 id="属性">属性</h2>
+
+<p>React中，组件的<strong>静态</strong>信息存储和组件的间的<strong>静态</strong>信息传递靠Props。</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
+
+<span class="hljs-keyword">var</span> HelloMessage = React.createClass({
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Hello {this.props.name}!<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>;</span>
+  }
+});
+
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">HelloMessage</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"world"</span> /&gt;</span>, 
+document.getElementById('container'));  </span></code></pre>
+
+
+
+<h2 id="状态">状态</h2>
+
+<p>在React的理念中，任何时刻的UI展现都是一个状态的呈现，各种内部状态组合成了一个<strong>状态机</strong>。状态是动态会变的。 <br>
+<strong>状态字段尽可能的少，且都放在根组件中。</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> HelloMessage = React.createClass({
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">return</span> {name: <span class="hljs-string">"John"</span>};
+  },
+  componentDidMount: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">this</span>.setState({name: <span class="hljs-string">"Tim"</span>});
+  },
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>Hello {this.state.name}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>;</span>
+  }
+});
+
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">HelloMessage</span> /&gt;</span>, 
+document.getElementById('container'));  </span></code></pre>
+
+
+
+<h2 id="组件组合">组件组合</h2>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> CommentBox = React.createClass({
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"comment-box"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Comments:<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">CommentList</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">CommentForm</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    );
+  }
+});
+ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">CommentBox</span> /&gt;</span>,
+document.getElementById('container'));</span></code></pre>
+
+<h2 id="组件生命周期">组件生命周期</h2>
+
+<p>初始化： <br>
+render <br>
+getInitialState（用ES6语法的话，初始化state放在constructor中） <br>
+装载： <br>
+componentWillMount <br>
+componentDidMount（最常用） <br>
+更新： <br>
+componentWillReceiveProps <br>
+shouldComponentUpdate <br>
+componentWillUpdate <br>
+componentDidUpdate <br>
+卸载： <br>
+componentWillUnmount</p>
+
+
+
+<h2 id="事件">事件</h2>
+
+<p>开发一个TODO应用，主要逻辑是表单提交事件的处理。 <br>
+<img src="https://img.alicdn.com/tps/TB1I_n9LpXXXXXLXXXXXXXXXXXX-498-494.jpg" alt="TODO" title=""></p>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
+
+<span class="hljs-keyword">var</span> TodoList = React.createClass({
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">var</span> createItem = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(item)</span> {</span>
+      <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{item.id}</span>&gt;</span>{item.text}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>;</span>
+    };
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>{this.props.items.map(createItem)}<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>;</span>
+  }
+});
+
+<span class="hljs-keyword">var</span> TodoApp = React.createClass({
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">return</span> {items: [], text: <span class="hljs-string">''</span>};
+  },
+
+  onChange: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+    <span class="hljs-keyword">this</span>.setState({text: e.target.value});
+  },
+
+  handleSubmit: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+    e.preventDefault();
+    <span class="hljs-keyword">var</span> nextItems = <span class="hljs-keyword">this</span>.state.items.concat([{text: <span class="hljs-keyword">this</span>.state.text, id: <span class="hljs-built_in">Date</span>.now()}]);
+    <span class="hljs-keyword">var</span> nextText = <span class="hljs-string">''</span>;
+    <span class="hljs-keyword">this</span>.setState({items: nextItems, text: nextText});
+  },
+
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>TODO<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">TodoList</span> <span class="hljs-attribute">items</span>=<span class="hljs-value">{this.state.items}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">onSubmit</span>=<span class="hljs-value">{this.handleSubmit}</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{this.state.text}</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>{'Add #' + (this.state.items.length + 1)}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    );
+  }
+});
+
+ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">TodoApp</span> /&gt;</span>, document.getElementById('container'));</span></code></pre>
+
+<h2 id="开发一个应用">开发一个应用</h2>
+
+<p><img src="https://img.alicdn.com/tps/TB1sATtLpXXXXa6XXXXXXXXXXXX-1308-1170.jpg" alt="信息流" title=""></p>
+
+
+
+<h3 id="组件拆分">组件拆分：</h3>
+
+<ul>
+<li>InfoStream <br>
+<ul><li>InfostreamHead <br>
+<ul><li>Refresh</li></ul></li>
+<li>InfoStreamBody</li>
+<li>Tip</li>
+<li>Back2Top</li></ul></li>
+</ul>
+
+
+
+<h3 id="搭建代码结构">搭建代码结构：</h3>
+
+
+
+<h4 id="infostreamjsx">InfoStream.jsx</h4>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">import React from <span class="hljs-string">'react'</span>;
+import ReactDOM from <span class="hljs-string">'react-dom'</span>;
+import InfoStreamHead from <span class="hljs-string">'./InfoStreamHead.jsx'</span>;
+import InfoStreamBody from <span class="hljs-string">'./InfoStreamBody.jsx'</span>;
+import Tip from <span class="hljs-string">'./Tip.jsx'</span>;
+import Back2Top from <span class="hljs-string">'./Back2Top.jsx'</span>;
+import { fetchArticles } from <span class="hljs-string">'./../actions'</span>;
+import { NAVDATA, ACTIVECID, TOP_OFFSET } from <span class="hljs-string">'./../store'</span>;
+
+<span class="hljs-keyword">class</span> InfoStream extends React.Component {
+  constructor (props) {
+    super(props);
+
+    <span class="hljs-comment">// Set default states</span>
+    <span class="hljs-keyword">this</span>.state = {
+      navData: NAVDATA,
+      pageData: [],
+      activeCid: ACTIVECID,
+      status: <span class="hljs-number">0</span>,
+      count: <span class="hljs-number">0</span>
+    };
+
+    <span class="hljs-keyword">this</span>.scrollLoad = <span class="hljs-keyword">this</span>.scrollLoad.bind(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">this</span>.onTabChange = <span class="hljs-keyword">this</span>.onTabChange.bind(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">this</span>.handleScroll = <span class="hljs-keyword">this</span>.handleScroll.bind(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">this</span>.onRefresh = <span class="hljs-keyword">this</span>.onRefresh.bind(<span class="hljs-keyword">this</span>);
+  }
+
+  scrollLoad() {}
+
+  onTabChange() {}
+
+  handleScroll() {}
+
+  onRefresh() {}
+
+  componentDidMount () {
+    fetchArticles().then(data =&gt; {
+      <span class="hljs-keyword">this</span>.setState({
+        pageData: data
+      });
+    });
+
+    window.addEventListener(<span class="hljs-string">'scroll'</span>, <span class="hljs-keyword">this</span>.handleScroll);
+  }
+
+  render () {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">'info-stream'</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">InfoStreamHead
+</span>          <span class="hljs-attribute">data</span>=<span class="hljs-value">{this.state.navData}</span>
+          <span class="hljs-attribute">onTabChange</span>=<span class="hljs-value">{this.onTabChange}</span>
+          <span class="hljs-attribute">activeCid</span>=<span class="hljs-value">{this.state.activeCid}</span>
+          <span class="hljs-attribute">onRefresh</span>=<span class="hljs-value">{this.onRefresh}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">InfoStreamBody
+</span>          <span class="hljs-attribute">pageData</span>=<span class="hljs-value">{this.state.pageData}</span>
+          <span class="hljs-attribute">isEnd</span>=<span class="hljs-value">{this.state.isEnd}</span>
+          <span class="hljs-attribute">activeCid</span>=<span class="hljs-value">{this.state.activeCid}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Tip
+</span>          <span class="hljs-attribute">status</span>=<span class="hljs-value">{this.state.status}</span>
+          <span class="hljs-attribute">count</span>=<span class="hljs-value">{this.state.count}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Back2Top</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    );
+  }
+}
+
+ReactDOM.render(
+  <span class="hljs-tag">&lt;<span class="hljs-title">InfoStream</span> /&gt;</span>,
+  document.getElementById('J_infoStream')
+);</span></code></pre>
+
+
+
+<h4 id="infostreamheadjsx">InfoStreamHead.jsx</h4>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">import React from <span class="hljs-string">'react'</span>;
+import Refresh from <span class="hljs-string">'./Refresh.jsx'</span>;
+
+<span class="hljs-keyword">class</span> InfoStreamHead extends React.Component {
+  handleClick() {
+    <span class="hljs-keyword">this</span>.props.onTabChange({activeCid: cid});
+  }
+
+  render() {
+    <span class="hljs-keyword">let</span> tabs = <span class="hljs-keyword">this</span>.props.data.map(item =&gt; {
+      <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.handleClick}</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+      );
+    });
+
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">'info-stream-head mod'</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">'tab-nav'</span>&gt;</span>
+          {tabs}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Refresh</span> <span class="hljs-attribute">onRefresh</span>=<span class="hljs-value">{this.props.onRefresh}</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    );
+  }
+}
+
+export default InfoStreamHead;</span></code></pre>
+
+
+
+<h4 id="refreshjsx">Refresh.jsx</h4>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">import React from <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">class</span> Refresh extends React.Component {
+  handleClick() {
+    <span class="hljs-keyword">this</span>.props.onRefresh();
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">'refresh'</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">'this.handleClick'</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+    );
+  }
+}
+
+export default Refresh;</span></code></pre>
+
+
+
+<h4 id="infostreambodyjsx">InfoStreamBody.jsx</h4>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">import React from <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">class</span> InfoStreamBody extends React.Component {
+  render() {}
+}
+
+export <span class="hljs-keyword">default</span> InfoStreamBody;</code></pre>
+
+
+
+<h3 id="单元测试">单元测试</h3>
+
+<p>使用React官方推荐的<a href="https://facebook.github.io/jest/">Jest</a>框架来进行单元测试。</p>
+
+
+
+<h4 id="packagejson">package.json</h4>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">{
+  <span class="hljs-string">"devDependencies"</span>: {
+    <span class="hljs-string">"grunt-browserify"</span>: <span class="hljs-string">"^4.0.0"</span>,
+    <span class="hljs-string">"react"</span>: <span class="hljs-string">"^0.14.3"</span>,
+    <span class="hljs-string">"react-addons-test-utils"</span>: <span class="hljs-string">"^0.14.3"</span>,
+    <span class="hljs-string">"react-dom"</span>: <span class="hljs-string">"^0.14.3"</span>,
+    <span class="hljs-string">"jest-cli"</span>: <span class="hljs-string">"^0.5.4"</span>
+    ...
+  },
+  <span class="hljs-string">"scripts"</span>: {
+    <span class="hljs-string">"test"</span>: <span class="hljs-string">"jest"</span>
+  },
+  <span class="hljs-string">"jest"</span>: {
+    <span class="hljs-string">"scriptPreprocessor"</span>: <span class="hljs-string">"&lt;rootDir&gt;/node_modules/babel-jest"</span>,
+    <span class="hljs-string">"unmockedModulePathPatterns"</span>: [
+      <span class="hljs-string">"&lt;rootDir&gt;/node_modules/react"</span>,
+      <span class="hljs-string">"&lt;rootDir&gt;/node_modules/react-dom"</span>,
+      <span class="hljs-string">"&lt;rootDir&gt;/node_modules/react-addons-test-utils"</span>,
+      <span class="hljs-string">"&lt;rootDir&gt;/src/lib/nut.core.js"</span>
+    ],
+    <span class="hljs-string">"testPathDirs"</span>: [
+      <span class="hljs-string">"&lt;rootDir&gt;/__tests__"</span>
+    ],
+    <span class="hljs-string">"testFileExtensions"</span>: [
+      <span class="hljs-string">"js"</span>,
+      <span class="hljs-string">"jsx"</span>
+    ]
+  }
+}</code></pre>
+
+<p>执行<code>npm install</code>来安装依赖模块。</p>
+
+
+
+<h4 id="infostreambody-testjs">InfoStreamBody-test.js</h4>
+
+
+
+<pre class="prettyprint"><code class="language-javascriptjest.dontMock('./../../src/components/InfoStream/components/InfoStreamBody.jsx'); hljs coffeescript">
+<span class="hljs-reserved">import</span> React from <span class="hljs-string">'react'</span>;
+<span class="hljs-reserved">import</span> ReactTestUtils from <span class="hljs-string">'react-addons-test-utils'</span>;
+<span class="hljs-reserved">import</span> ReactDOM from <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-reserved">const</span> InfoStreamBody = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./../../src/components/InfoStream/components/InfoStreamBody.jsx'</span>);
+
+describe<span class="hljs-function"><span class="hljs-params">(<span class="hljs-string">'InfoStream'</span>, () =&gt; {
+  it(<span class="hljs-string">'unit test'</span>, () =&gt; {
+    <span class="hljs-reserved">let</span> infoStream = ReactTestUtils.renderIntoDocument(
+      &lt;InfoStream /&gt;
+    );
+
+    <span class="hljs-reserved">let</span> infoStreamNode = ReactDOM.findDOMNode(infoStream);
+
+    expect(infoStreamNode.children.length).toEqual(<span class="hljs-number">4</span>);
+    expect(infoStreamNode.className).toContain(<span class="hljs-string">'info-stream'</span>);
+  });
+})</span>;</span></code></pre>
+
+<p>运行<code>npm run test</code>来执行单元测试。</p>
+
+
+
+<h3 id="构建">构建</h3>
+
+<p>导航项目采用<a href="http://gruntjs.com/">Grunt</a>+<a href="http://browserify.org/">Browserify</a>+<a href="https://babeljs.io/">Babel</a>来构建，也可采用<a href="http://webpack.github.io/">Webpack</a>+<a href="https://babeljs.io/">Babel</a>来构建。</p>
+
+
+
+<h4 id="gruntfilejs">Gruntfile.js</h4>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(grunt)</span> {</span>
+  grunt.initConfig({
+    dest: <span class="hljs-string">'./build/page/index'</span>,
+    components: <span class="hljs-string">'./src/components'</span>,
+    browserify: {
+      components: {
+        files: {
+          <span class="hljs-string">'&lt;%= dest %&gt;/js/components.js'</span>: [<span class="hljs-string">'&lt;%= components %&gt;/InfoStream/**/*.{jsx,js}'</span>]
+        },
+        options: {
+          <span class="hljs-string">'transform'</span>: [
+            [<span class="hljs-string">'babelify'</span>, {
+              <span class="hljs-string">'optional'</span>: [<span class="hljs-string">'es7.asyncFunctions'</span>]
+            }]
+          ],
+          browserifyOptions: {
+            debug: <span class="hljs-literal">true</span>
+          }
+        }
+      }
+    }
+  });
+
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-browserify'</span>);
+  grunt.registerTask(<span class="hljs-string">'default'</span>, [<span class="hljs-string">'eslint'</span>, <span class="hljs-string">'clean'</span>, <span class="hljs-string">'copy'</span>, <span class="hljs-string">'less'</span>,
+    <span class="hljs-string">'browserify'</span>, <span class="hljs-string">'concat'</span>, <span class="hljs-string">'cssmin'</span>, <span class="hljs-string">'imagemin'</span>, <span class="hljs-string">'uglify'</span>, <span class="hljs-string">'watch'</span>]);
+};</code></pre>
+
+<p>运行<code>grunt</code>来执行前端构建并监听文件修改。</p>
+
+
+
+<h2 id="spasingle-page-applications">SPA（Single-page applications）</h2>
+
+<p></p><ul> <br>
+<li>无刷新</li>
+<li>有URL的变化 <br></li></ul><p></p>
+
+<blockquote>
+   明确是SPA型应用才考虑引入router，最常用的是：<a href="https://github.com/rackt/react-router">react-router</a>  
+  
+  </blockquote>
+
+
+<h4 id="代码示例">代码示例：</h4>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">import React from <span class="hljs-string">'react'</span>
+import ReactDOM from <span class="hljs-string">'react-dom'</span>
+import { Router, Route, Link } from <span class="hljs-string">'react-router'</span>
+
+<span class="hljs-keyword">const</span> About = React.createClass({<span class="hljs-comment">/*...*/</span>})
+<span class="hljs-keyword">const</span> Inbox = React.createClass({<span class="hljs-comment">/*...*/</span>})
+
+<span class="hljs-keyword">const</span> App = React.createClass({
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>App<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/about"</span>&gt;</span>About<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/inbox"</span>&gt;</span>Inbox<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+
+        {this.props.children}
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    )
+  }
+})
+
+ReactDOM.render((
+  <span class="hljs-tag">&lt;<span class="hljs-title">Router</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"/"</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{App}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"about"</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{About}</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"inbox"</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{Inbox}</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">Route</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">Router</span>&gt;</span>
+), document.body)</span></code></pre>
+
+
+
+<h2 id="flux">Flux</h2>
+
+<p><a href="https://facebook.github.io/flux/">flux</a>: APPLICATION ARCHITECTURE FOR BUILDING USER INTERFACES</p>
+
+
+
+<h3 id="单项数据流">单项数据流：</h3>
+
+<p><img src="https://facebook.github.io/flux/img/flux-simple-f8-diagram-1300w.png" alt="架构图" title=""></p>
+
+<blockquote>
+  <p>现在业界最流行的实现是<a href="http://redux.js.org/index.html">Redux</a>。一般都是有大量React组件已经存在，且你自己已确信需要一个应用架构来组织的时候才考虑引入Flux框架。</p>
+</blockquote>
+
+
+
+<h2 id="服务器端渲染">服务器端渲染</h2>
+
+<blockquote>
+  <p>服务器端渲染也成为同构。为了将React组件做到前后端公用，且做到没有首屏性能问题。基本原理是在Web服务端把React组件输出成HTML字符串到前端。<a href="https://github.com/mhart/react-server-example">代码示例</a></p>
+</blockquote>
+
+
+
+<h2 id="inline-style">Inline Style</h2>
+
+<blockquote>
+  <p>CSS在被创造出来那天，就有很多天生的问题，例如全局变量、依赖、隔离等等尤其在应对大规模Web应用时。利用LESS、SASS等预CSS编译语言，可以一定程度上解决/规避那些问题，但还是不能完全解决。Facebook对大规模CSS做了很多努力，最终用React的inline style相对比较好的解决了这些问题。</p>
+</blockquote>
+
+
+
+<h4 id="代码示例-1">代码示例：</h4>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> divStyle = {
+  color: <span class="hljs-string">'white'</span>,
+  backgroundImage: <span class="hljs-string">'url('</span> + imgUrl + <span class="hljs-string">')'</span>,
+  WebkitTransition: <span class="hljs-string">'all'</span>, 
+  msTransition: <span class="hljs-string">'all'</span>
+};
+
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{divStyle}</span>&gt;</span>Hello World!<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>, mountNode);</span></code></pre>
+
+<p><a href="https://speakerdeck.com/vjeux/react-css-in-js">FB员工分享PPT</a></p>
+
+
+</body>
+</html>
